@@ -83,6 +83,29 @@ def test_time_it_no_args():
         r = session5.time_it()
 
 
+def test_time_it_print():
+    assert session5.time_it('print', 1, 2, 3, sep='-', repetitions=4) > 0, "Print is not taking more than 0 secs"
+
+
+def test_time_it_polygon_area():
+    assert session5.time_it('polygon_area', 15, sides=3) > 0, "polygon_area is not taking more than 0 secs"
+
+
+def test_time_it_squared_power_list():
+    assert session5.time_it('squared_power_list', 5, start=2, end=8,
+                            repetitions=15) > 0, "squared_power_list is not taking more than 0 secs"
+
+
+def test_time_it_temp_converter():
+    assert session5.time_it('temp_converter', 200, temp_given_in='f',
+                            repetitions=15) > 0, "temp_converter is not taking more than 0 secs"
+
+
+def test_time_it_speed_converter():
+    assert session5.time_it('speed_converter', 200, dist='yrd', time='m',
+                            repetitions=15) > 0, "speed_converter is not taking more than 0 secs"
+
+
 def test_squared_power_list_non_int_input():
     with pytest.raises(TypeError) as e_info:
         r = session5.squared_power_list('a', 2, 5)

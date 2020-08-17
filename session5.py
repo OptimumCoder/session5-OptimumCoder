@@ -19,12 +19,13 @@ def time_it(fn, *args, repetitions=1, **kwargs):
         raise ValueError('Not a valid function name')
 
     start_time = perf_counter()
+
     for _ in range(repetitions):
-        if fn == print:
+        if fn == 'print':
             print(*args, **kwargs)
-        elif fn == squared_power_list:
+        elif fn == 'squared_power_list':
             print(f'squared_power_list is', squared_power_list(*args, **kwargs))
-        elif fn == polygon_area(*args, **kwargs):
+        elif fn == 'polygon_area':
             print(f'polygon area is', polygon_area(*args, **kwargs))
         elif fn == 'temp_converter':
             print(f'temperature in celsius is', temp_converter(*args, **kwargs))
@@ -34,6 +35,8 @@ def time_it(fn, *args, repetitions=1, **kwargs):
     end_time = perf_counter()
 
     avg_time = (end_time - start_time) / repetitions
+
+    print(f'the average time taken for {fn}:', avg_time)
 
     return avg_time
 
@@ -102,7 +105,7 @@ def speed_converter(speed_in_kmph, dist, time):
 
     if dist not in ['km', 'm', 'ft', 'yrd']:
         raise ValueError("Distance UOM is incorrect")
-    elif time not in ['ms', 's', 'm', 'hr','day']:
+    elif time not in ['ms', 's', 'm', 'hr', 'day']:
         raise ValueError("Time UOM is incorrect")
     elif speed_in_kmph < 0:
         raise ValueError("Speed cannot be negative")
@@ -114,3 +117,17 @@ def speed_converter(speed_in_kmph, dist, time):
         raise KeyError("Key not found")
     else:
         return speed_in_kmph * dict_dist['km' + '_' + dist] / dict_time['hr' + '_' + time]
+
+
+# time_it('print', 1, 2, 3, sep='-', repetitions=4)
+#
+# time_it('polygon_area', 15, sides=3)
+#
+# time_it('squared_power_list', 5, start=2, end=8,
+#         repetitions=15)
+#
+# time_it('speed_converter', 200, dist='yrd', time='m',
+#         repetitions=15)
+#
+# time_it('temp_converter', 200, temp_given_in='f',
+#         repetitions=15)
